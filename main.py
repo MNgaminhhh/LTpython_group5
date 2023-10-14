@@ -1,4 +1,3 @@
-# file: main.py
 import pandas as pd 
 import tkinter as tk
 from ttkbootstrap import Style
@@ -6,7 +5,7 @@ from tkinter import ttk
 from tkinter import Menu
 from src.loadFile import load_file
 from src.displayDataAndInfo import display_data_and_info
-from src.shuffleData import shuffle_data  # Import the shuffle_data function
+from src.shuffleData import shuffle_data
 
 def load_and_display():
     global df
@@ -15,8 +14,8 @@ def load_and_display():
 
 def shuffle_and_display():
     global df
-    df = shuffle_data(df)  # Shuffle the data
-    display_data_and_info(df, tree, info_text_widget)  # Display the shuffled data
+    df = shuffle_data(df) 
+    display_data_and_info(df, tree, info_text_widget)
 
 root = tk.Tk()
 root.title("Quản lý dữ liệu học tập")
@@ -50,6 +49,6 @@ root.config(menu=menubar)
 file_menu = Menu(menubar, tearoff=False)
 menubar.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="Load File", command=load_and_display)
-file_menu.add_command(label="Shuffle Data", command=shuffle_and_display)  # Add a new menu item to shuffle data
+file_menu.add_command(label="Shuffle Data", command=shuffle_and_display)
 
 root.mainloop()
