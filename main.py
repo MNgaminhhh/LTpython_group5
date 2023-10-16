@@ -15,8 +15,9 @@ def load_and_display():
 
 def shuffle_and_display():
     global df
-    df = shuffle_data(df) 
-    display_data_and_info(df, tree, info_text_widget)
+    shuffled_df = shuffle_data(df) 
+    if shuffled_df is not None:
+        display_data_and_info(shuffled_df, tree, info_text_widget)
     
 def save_data_to_file():
     global df
