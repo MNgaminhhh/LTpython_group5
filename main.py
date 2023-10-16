@@ -6,6 +6,7 @@ from tkinter import Menu
 from src.loadFile import load_file
 from src.displayDataAndInfo import display_data_and_info
 from src.shuffleData import shuffle_data
+from src.saveFile import save_data
 
 def load_and_display():
     global df
@@ -16,6 +17,10 @@ def shuffle_and_display():
     global df
     df = shuffle_data(df) 
     display_data_and_info(df, tree, info_text_widget)
+    
+def save_data_to_file():
+    global df
+    save_data(df)
 
 root = tk.Tk()
 root.title("Quản lý dữ liệu học tập")
@@ -47,8 +52,10 @@ display_data_and_info(df, tree, info_text_widget)
 menubar = Menu(root)
 root.config(menu=menubar)
 file_menu = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="Load File", command=load_and_display)
-file_menu.add_command(label="Shuffle Data", command=shuffle_and_display)
+menubar.add_cascade(label="Tài Liệu", menu=file_menu)
+file_menu.add_command(label="Tải tài liệu lên", command=load_and_display)
+file_menu.add_command(label="Xáo trộn tài liệu", command=shuffle_and_display)
+file_menu.add_command(label="Lưu tài liệu xuống", command=save_data_to_file)
+
 
 root.mainloop()
