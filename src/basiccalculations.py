@@ -6,7 +6,7 @@ def findMin(df,a):
         messagebox.showwarning("Không có dữ liệu")
         return None 
     x=df[a].min()
-    print(f"Giá trị nhỏ nhất của {a} là: {x}")
+    return x
 def findMax(df,a):
     if df is None or df.empty:
         messagebox.showwarning("Không có dữ liệu")
@@ -25,12 +25,12 @@ def findCountNoCondition(df,a):
         return None 
     x=df[a].count()
     print(f"Số lượng phần tử của {a} là: {x}")
-def findCountHaveCondition(df,a):
-    if df is None or df.empty:
-        messagebox.showwarning("Không có dữ liệu")
-        return None 
-    x=df[a].count()
-    print(f"Số lượng phần tử của {a} là: {x}")
+#def findCountHaveCondition(df,a):
+#    if df is None or df.empty:
+#        messagebox.showwarning("Không có dữ liệu")
+#        return None 
+#    x=df[a].count()
+#    print(f"Số lượng phần tử của {a} là: {x}")
 
 
 

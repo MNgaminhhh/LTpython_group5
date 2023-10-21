@@ -1,6 +1,7 @@
 # file: main.py
 import pandas as pd 
 import tkinter as tk
+from tkinter import *
 from ttkbootstrap import Style
 from tkinter import ttk
 from tkinter import Menu
@@ -8,6 +9,10 @@ from src.loadFile import load_file
 from src.displayDataAndInfo import display_data_and_info
 from src.dropduplicate import dropDuplicate
 from src.removeNullValue import removeNullValue
+from src.basiccalculations import findMin
+from src.basiccalculations import findMax
+from src.basiccalculations import findAverage
+from src.basiccalculations import findCountNoCondition
 
 def load_and_display():
     global df
@@ -23,37 +28,50 @@ def remove_Null():
     remove_null_df = removeNullValue(df) 
     if remove_null_df is not None:
         display_data_and_info(remove_null_df, tree, info_text_widget)
+def find_Min(column):
+    global df
+    a=findMin(df,column)
+    return a
+def khung_tim_min():
+    root1=Tk() #
+    root1.title("Tìm min") #
+    root1.geometry('400x400')
+    
+    label=Label(root1,text='Thuộc tính')
+    label.place(x=20,y=20)
+
+    global df
+    column=list(df.columns)
+    
+
+    clicked=StringVar(root1)
+    clicked.set(column[0])
+
+    def selected(ev):
+        mylabel=Label(root1,text=f"Min của {clicked.get()} là: "+str(find_Min(clicked.get()))).pack()
+        
+
+    drop=OptionMenu(root1,clicked,*column,command=selected)
+    drop.config(width=30)
+    drop.pack(pady=20)
+    #button=tk.Button(root1,text="Tìm min",command=selected)
+    #button.pack()
+   
+    
+    #button1 = tk.Button(root1, text="Tìm min")
+    #button1.place(x=root1.winfo_screenwidth() - button1.winfo_width(), y=root1.winfo_screenheight() - button1.winfo_height())
+    #button1.config(command=lambda: findMin(optionMenu.get()))
+
+    
+    root1.mainloop()
 
 root = tk.Tk()
 root.title("Quản lý dữ liệu học tập")
 root.wm_state('zoomed')
 
-#root1=tk.Tk()
-#root1.title("Tính toán")
-#root1.vm_state('zoomed')
-
 style = Style(theme='darkly')
 notebook = ttk.Notebook(root)
 notebook.pack(pady=10, padx=10, expand=True, fill='both')
-
-#style1 = Style(theme='darkly')
-#notebook = ttk.Notebook(root1)
-#notebook.pack(pady=10, padx=10, expand=True, fill='both')
-
-#columns=df.columns
-#optionMenu=tk.OptionMenu(root1,"",*columns)
-#optionMenu.config("Chọn thuộc tính")
-#label=tk.Label(root1)
-#button=tk.Button(root1,text="Close")
-
-#optionMenu.pack()
-#label.pack()
-#button.pack()
-
-#olumn = optionMenu.get()
-#label.config(column)
-
-
 
 tab1 = ttk.Frame(notebook)
 notebook.add(tab1, text='Dữ Liệu')
@@ -83,4 +101,11 @@ menubar.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="Load File", command=load_and_display)
 file_menu.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_and_display)
 file_menu.add_command(label="Xóa các dòng có Null",command=remove_Null)
+
+file_menu1 = Menu(menubar, tearoff=False) #
+menubar.add_cascade(label="Tính toán", menu=file_menu1)#
+file_menu1.add_command(label="tìm min",command=khung_tim_min)
+
 root.mainloop()
+
+
