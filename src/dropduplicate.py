@@ -1,7 +1,7 @@
 import pandas as pd
 import tkinter.messagebox as messagebox
 
-def dropduplicate(df):
+def dropDuplicate(df):
     if df is None or df.empty:
         messagebox.showwarning("Không có dữ liệu")
         return None 
