@@ -13,6 +13,7 @@ from src.basiccalculations import findMin
 from src.basiccalculations import findMax
 from src.basiccalculations import findAverage
 from src.basiccalculations import findCountNoCondition
+from src.loaddictionary import loadDictionary
 
 def load_and_display():
     global df
@@ -32,9 +33,17 @@ def find_Min(column):
     global df
     a=findMin(df,column)
     return a
-def khung_tim_min():
+def find_Max(column):
+    global df
+    a=findMax(df,column)
+    return a
+def find_Average(column):
+    global df
+    a=findAverage(df,column)
+    return a
+def khung_tinh_toan():
     root1=Tk() #
-    root1.title("Tìm min") #
+    root1.title("Basic Caculations") #
     root1.geometry('400x400')
     
     label=Label(root1,text='Thuộc tính')
@@ -43,27 +52,44 @@ def khung_tim_min():
     global df
     column=list(df.columns)
     
-
     clicked=StringVar(root1)
     clicked.set(column[0])
 
     def selected(ev):
         mylabel=Label(root1,text=f"Min của {clicked.get()} là: "+str(find_Min(clicked.get()))).pack()
-        
+        mylabel1=Label(root1,text=f"Max của {clicked.get()} là: "+str(find_Max(clicked.get()))).pack()
+        mylabel3=Label(root1,text=f"Max của {clicked.get()} là: "+str(find_Average(clicked.get()))).pack()
 
     drop=OptionMenu(root1,clicked,*column,command=selected)
     drop.config(width=30)
     drop.pack(pady=20)
-    #button=tk.Button(root1,text="Tìm min",command=selected)
-    #button.pack()
-   
+    root1.mainloop()
+def load_Dictionary():
+    root2=Tk() #
+    root2.title("Dictionary") #
+    root2.geometry('600x800')
+
+    text1=Text(root2)
+    text1.pack()
+    def displayresult(df, tree):
+        for i in tree.get_children():
+            tree.delete(i)
+            tree['columns'] = tuple(df.columns)
+        for col in df.columns:
+            tree.column(col, anchor='center')
+            tree.heading(col, text=col)
+        for index, row in df.iterrows():
+            tree.insert("", 'end', values=tuple(row))
+    def change():
+        mydict=eval(text1.get("1.0", END))
+        newdf=loadDictionary(mydict)
+        mylabel=Label(root2,displayresult(newdf,tree)).pack()
+    button=Button(root2,text="chuyển",command=change)
+    button.pack()
     
-    #button1 = tk.Button(root1, text="Tìm min")
-    #button1.place(x=root1.winfo_screenwidth() - button1.winfo_width(), y=root1.winfo_screenheight() - button1.winfo_height())
-    #button1.config(command=lambda: findMin(optionMenu.get()))
+    root2.mainloop()
 
     
-    root1.mainloop()
 
 root = tk.Tk()
 root.title("Quản lý dữ liệu học tập")
@@ -101,11 +127,8 @@ menubar.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="Load File", command=load_and_display)
 file_menu.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_and_display)
 file_menu.add_command(label="Xóa các dòng có Null",command=remove_Null)
-
-file_menu1 = Menu(menubar, tearoff=False) #
-menubar.add_cascade(label="Tính toán", menu=file_menu1)#
-file_menu1.add_command(label="tìm min",command=khung_tim_min)
-
+file_menu.add_command(label="Tính toán",command=khung_tinh_toan)
+file_menu.add_command(label="Chuyển dictionary sang dataFrame",command=load_Dictionary)
 root.mainloop()
 
 

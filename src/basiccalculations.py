@@ -12,13 +12,13 @@ def findMax(df,a):
         messagebox.showwarning("Không có dữ liệu")
         return None 
     x=df[a].max()
-    print(f"Giá trị lớn nhất của {a} là: {x}")
+    return x
 def findAverage(df,a):
     if df is None or df.empty:
         messagebox.showwarning("Không có dữ liệu")
         return None 
     x=df[a].mean()
-    print(f"Giá trị trung bình của {a} là: {x}")
+    return x
 def findCountNoCondition(df,a):
     if df is None or df.empty:
         messagebox.showwarning("Không có dữ liệu")
