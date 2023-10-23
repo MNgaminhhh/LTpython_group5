@@ -82,6 +82,24 @@ def load_Dictionary():
     button.pack()
     
     root2.mainloop()
+def load_list():
+    root2=Tk() #
+    root2.title("Python list") #
+    root2.geometry('400x400')
+
+    text1=Text(root2)
+    text1.pack()
+    
+    
+    def show():
+        mylist=eval(text1.get("1.0", END))
+        newdf=loadDictionary(mylist)
+        display_data_and_info(newdf, tree, info_text_widget)
+    
+    button=tk.Button(root2,text="chuyển",command=show)
+    button.pack()
+    
+    root2.mainloop()
 
     
 
@@ -124,6 +142,7 @@ file_menu.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_an
 file_menu.add_command(label="Xóa các dòng có Null",command=remove_Null)
 file_menu.add_command(label="Tính toán",command=khung_tinh_toan)
 file_menu.add_command(label="Chuyển dictionary sang dataFrame",command=load_Dictionary)
+file_menu.add_command(label="Chuyển list sang dataFrame",command=load_list)
 root.mainloop()
 
 
