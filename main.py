@@ -14,6 +14,9 @@ from src.basiccalculations import findMax
 from src.basiccalculations import findAverage
 from src.basiccalculations import findCountNoCondition
 from src.loaddictionary import loadDictionary
+from src.replaceNullValue import replaceNullwithmax
+from src.replaceNullValue import replaceNullwithmedium
+from src.replaceNullValue import replaceNullwithmin
 
 def load_and_display():
     global df
@@ -41,6 +44,61 @@ def find_Average(column):
     global df
     a=findAverage(df,column)
     return a
+def replace_null_with_min(column):
+    global df
+    replace_null_df = replaceNullwithmin(df,column) 
+    if replace_null_df is not None:
+        display_data_and_info(replace_null_df, tree, info_text_widget)
+def replace_null_with_max(column):
+    global df
+    replace_null_df = replaceNullwithmax(df,column) 
+    if replace_null_df is not None:
+        display_data_and_info(replace_null_df, tree, info_text_widget)
+def replace_null_with_medium(column):
+    global df
+    replace_null_df = replaceNullwithmedium(df,column) 
+    if replace_null_df is not None:
+        display_data_and_info(replace_null_df, tree, info_text_widget)
+def replace_null_option():
+    root3=Tk() #
+    root3.title("Basic Caculations") #
+    root3.geometry('400x200')
+    
+    label=Label(root3,text='Option')
+    label.place(x=20,y=20)
+
+    label1=Label(root3,text="Thuộc tính")
+    label1.place(x=20,y=80)
+
+    global df
+    column=list(df.columns)
+    option=list(["Replace Null with Min","Replace Null with Max","Replace Null with Medium"])
+    
+    clicked1=StringVar(root3)
+    clicked1.set(option[0])
+
+    clicked2=StringVar(root3)
+    clicked2.set(column[0])
+
+    def selected():
+        if clicked1.get()==option[0]:
+            replace_null_with_min(clicked2.get())
+        elif clicked1.get()==option[1]:
+            replace_null_with_max(clicked2.get())
+        elif clicked1.get()==option[2]:
+            replace_null_with_medium(clicked2.get())
+    drop=OptionMenu(root3,clicked1,*option)
+    drop.config(width=30)
+    drop.pack(pady=20)
+
+    drop=OptionMenu(root3,clicked2,*column)
+    drop.config(width=30)
+    drop.pack(pady=20)
+
+    button=tk.Button(root3,text="Thay thế",command=selected)
+    button.place(x=60,y=60)
+    button.pack()
+    root3.mainloop()
 def khung_tinh_toan():
     root1=Tk() #
     root1.title("Basic Caculations") #
@@ -143,6 +201,7 @@ file_menu.add_command(label="Xóa các dòng có Null",command=remove_Null)
 file_menu.add_command(label="Tính toán",command=khung_tinh_toan)
 file_menu.add_command(label="Chuyển dictionary sang dataFrame",command=load_Dictionary)
 file_menu.add_command(label="Chuyển list sang dataFrame",command=load_list)
+file_menu.add_command(label="Thay thế giá trị null bằng một giá trị khác",command=replace_null_option)
 root.mainloop()
 
 
