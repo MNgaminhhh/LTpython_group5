@@ -67,24 +67,18 @@ def khung_tinh_toan():
 def load_Dictionary():
     root2=Tk() #
     root2.title("Dictionary") #
-    root2.geometry('600x800')
+    root2.geometry('400x400')
 
     text1=Text(root2)
     text1.pack()
-    def displayresult(df, tree):
-        for i in tree.get_children():
-            tree.delete(i)
-            tree['columns'] = tuple(df.columns)
-        for col in df.columns:
-            tree.column(col, anchor='center')
-            tree.heading(col, text=col)
-        for index, row in df.iterrows():
-            tree.insert("", 'end', values=tuple(row))
-    def change():
+    
+    
+    def show():
         mydict=eval(text1.get("1.0", END))
         newdf=loadDictionary(mydict)
-        mylabel=Label(root2,displayresult(newdf,tree)).pack()
-    button=Button(root2,text="chuyển",command=change)
+        display_data_and_info(newdf, tree, info_text_widget)
+    
+    button=tk.Button(root2,text="chuyển",command=show)
     button.pack()
     
     root2.mainloop()
@@ -111,6 +105,7 @@ hsb = ttk.Scrollbar(tree_frame, orient="horizontal", command=tree.xview)
 hsb.pack(side='bottom', fill='x')
 tree.configure(xscrollcommand=hsb.set)
 tree.pack(expand=True, fill='both')
+
 tab2 = ttk.Frame(notebook)
 notebook.add(tab2, text='Thông Tin')
 info_text_widget = tk.Text(tab2, wrap='word', height=5, bg=style.colors.dark, fg=style.colors.light, insertbackground=style.colors.light, insertwidth=2)
