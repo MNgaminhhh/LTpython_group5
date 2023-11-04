@@ -24,14 +24,16 @@ def load_and_display():
     display_data_and_info(df, tree, info_text_widget)
 def drop_duplicate_and_display():
     global df
-    drop_duplicates_df = dropDuplicate(df) 
+    drop_duplicates_df = dropDuplicate(df)
     if drop_duplicates_df is not None:
-        display_data_and_info(drop_duplicates_df, tree, info_text_widget)
+        df = drop_duplicates_df  # Cập nhật df sau khi loại bỏ dòng trùng lặp
+        display_data_and_info(df, tree, info_text_widget)
 def remove_Null():
     global df
-    remove_null_df = removeNullValue(df) 
+    remove_null_df = removeNullValue(df)
     if remove_null_df is not None:
-        display_data_and_info(remove_null_df, tree, info_text_widget)
+        df = remove_null_df  # Cập nhật df sau khi loại bỏ dòng có giá trị null
+        display_data_and_info(df, tree, info_text_widget)
 def find_Min(column):
     global df
     a=findMin(df,column)
@@ -46,19 +48,22 @@ def find_Average(column):
     return a
 def replace_null_with_min(column):
     global df
-    replace_null_df = replaceNullwithmin(df,column) 
+    replace_null_df = replaceNullwithmin(df, column)
     if replace_null_df is not None:
-        display_data_and_info(replace_null_df, tree, info_text_widget)
+        df = replace_null_df
+        display_data_and_info(df, tree, info_text_widget)
 def replace_null_with_max(column):
     global df
-    replace_null_df = replaceNullwithmax(df,column) 
+    replace_null_df = replaceNullwithmax(df, column)
     if replace_null_df is not None:
-        display_data_and_info(replace_null_df, tree, info_text_widget)
+        df = replace_null_df
+        display_data_and_info(df, tree, info_text_widget)
 def replace_null_with_medium(column):
     global df
-    replace_null_df = replaceNullwithmedium(df,column) 
+    replace_null_df = replaceNullwithmedium(df, column)
     if replace_null_df is not None:
-        display_data_and_info(replace_null_df, tree, info_text_widget)
+        df = replace_null_df
+        display_data_and_info(df, tree, info_text_widget)
 def replace_null_option():
     root3=Tk() #
     root3.title("Basic Caculations") #
@@ -161,9 +166,10 @@ def load_list():
 
 def shuffle_and_display():
     global df
-    shuffled_df = shuffle_data(df) 
+    shuffled_df = shuffle_data(df)
     if shuffled_df is not None:
-        display_data_and_info(shuffled_df, tree, info_text_widget)
+        df = shuffled_df  # Cập nhật df sau khi xáo trộn dữ liệu
+        display_data_and_info(df, tree, info_text_widget)
     
 def save_data_to_file():
     global df
@@ -201,17 +207,20 @@ menubar = Menu(root)
 
 
 root.config(menu=menubar)
-file_menu = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="Tài Liệu", menu=file_menu)
-file_menu.add_command(label="Tải dữ liệu lên ", command=load_and_display)
-file_menu.add_command(label="Xáo trộn tài liệu", command=shuffle_and_display)
-file_menu.add_command(label="Lưu tài liệu xuống", command=save_data_to_file)
-file_menu.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_and_display)
-file_menu.add_command(label="Xóa các dòng có Null",command=remove_Null)
-file_menu.add_command(label="Tính toán",command=khung_tinh_toan)
-file_menu.add_command(label="Chuyển dictionary sang dataFrame",command=load_Dictionary)
-file_menu.add_command(label="Chuyển list sang dataFrame",command=load_list)
-file_menu.add_command(label="Thay thế giá trị null bằng một giá trị khác",command=replace_null_option)
+file_menu_1 = Menu(menubar, tearoff=False)
+menubar.add_cascade(label="Tài Liệu", menu=file_menu_1)
+file_menu_1.add_command(label="Tải dữ liệu lên ", command=load_and_display)
+file_menu_1.add_command(label="Lưu tài liệu xuống", command=save_data_to_file)
+file_menu_1.add_command(label="Chuyển dictionary sang dataFrame",command=load_Dictionary)
+file_menu_1.add_command(label="Chuyển list sang dataFrame",command=load_list)
+
+file_menu_2 = Menu(menubar, tearoff=False)
+menubar.add_cascade(label="Chức Năng", menu=file_menu_2)
+file_menu_2.add_command(label="Xáo trộn tài liệu", command=shuffle_and_display)
+file_menu_2.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_and_display)
+file_menu_2.add_command(label="Xóa các dòng có Null",command=remove_Null)
+file_menu_2.add_command(label="Tính toán",command=khung_tinh_toan)
+file_menu_2.add_command(label="Thay thế giá trị null bằng một giá trị khác",command=replace_null_option)
 root.mainloop()
 
 
