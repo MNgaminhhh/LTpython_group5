@@ -16,7 +16,8 @@ from src.loaddictionary import loadDictionary
 from src.replaceNullValue import replaceNullwithmax
 from src.replaceNullValue import replaceNullwithmedium
 from src.replaceNullValue import replaceNullwithmin
-
+from src.shuffleData import shuffle_data
+from src.saveFile import save_data
 def load_and_display():
     global df
     df = load_file()
@@ -158,8 +159,6 @@ def load_list():
     
     root2.mainloop()
 
-    
-
 def shuffle_and_display():
     global df
     shuffled_df = shuffle_data(df) 
@@ -203,8 +202,10 @@ menubar = Menu(root)
 
 root.config(menu=menubar)
 file_menu = Menu(menubar, tearoff=False)
-menubar.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="Load File", command=load_and_display)
+menubar.add_cascade(label="Tài Liệu", menu=file_menu)
+file_menu.add_command(label="Tải dữ liệu lên ", command=load_and_display)
+file_menu.add_command(label="Xáo trộn tài liệu", command=shuffle_and_display)
+file_menu.add_command(label="Lưu tài liệu xuống", command=save_data_to_file)
 file_menu.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_and_display)
 file_menu.add_command(label="Xóa các dòng có Null",command=remove_Null)
 file_menu.add_command(label="Tính toán",command=khung_tinh_toan)
