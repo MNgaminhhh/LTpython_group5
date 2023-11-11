@@ -121,7 +121,7 @@ def khung_tinh_toan():
     def selected(ev):
         mylabel=Label(root1,text=f"Min của {clicked.get()} là: "+str(find_Min(clicked.get()))).pack()
         mylabel1=Label(root1,text=f"Max của {clicked.get()} là: "+str(find_Max(clicked.get()))).pack()
-        mylabel3=Label(root1,text=f"Max của {clicked.get()} là: "+str(find_Average(clicked.get()))).pack()
+        mylabel3=Label(root1,text=f"Giá trị trung bình của {clicked.get()} là: "+str(find_Average(clicked.get()))).pack()
 
     drop=OptionMenu(root1,clicked,*column,command=selected)
     drop.config(width=30)
@@ -137,9 +137,10 @@ def load_Dictionary():
     
     
     def show():
+        global df
         mydict=eval(text1.get("1.0", END))
-        newdf=loadDictionary(mydict)
-        display_data_and_info(newdf, tree, info_text_widget)
+        df=loadDictionary(mydict)
+        display_data_and_info(df, tree, info_text_widget)
     
     button=tk.Button(root2,text="chuyển",command=show)
     button.pack()
