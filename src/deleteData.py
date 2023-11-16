@@ -9,5 +9,7 @@ def delete_data(df,root,entry_field):
         return None
     id = entry_field
     df = df.drop(df[df.iloc[:,0]==id].index,inplace=True)
-    messagebox.showinfo("Thông báo", "Xóa dữ liệu thành công!")  # Hiển thị thông báo thành công
+    messagebox.showinfo("Thông báo", "Xóa dữ liệu thành công!")  # Hiển thị thông báo thành công'
+    
     root.destroy() 
+    return df
