@@ -135,7 +135,6 @@ def load_Dictionary():
     text1=Text(root2)
     text1.pack()
     
-    
     def show():
         global df
         mydict=eval(text1.get("1.0", END))
@@ -218,10 +217,10 @@ file_menu_1.add_command(label="Chuyển list sang dataFrame",command=load_list)
 file_menu_2 = Menu(menubar, tearoff=False)
 menubar.add_cascade(label="Chức Năng", menu=file_menu_2)
 file_menu_2.add_command(label="Xáo trộn tài liệu", command=shuffle_and_display)
-file_menu_2.add_command(label="loại bỏ trùng lặp",command=drop_duplicate_and_display)
-file_menu_2.add_command(label="Xóa các dòng có Null",command=remove_Null)
+file_menu_2.add_command(label="Loại bỏ trùng lặp",command=drop_duplicate_and_display)
+file_menu_2.add_command(label="Xóa các giá trị Null",command=remove_Null)
 file_menu_2.add_command(label="Tính toán",command=khung_tinh_toan)
-file_menu_2.add_command(label="Thay thế giá trị null bằng một giá trị khác",command=replace_null_option)
+file_menu_2.add_command(label="Thay thế giá trị Null bằng một giá trị khác",command=replace_null_option)
 root.mainloop()
 
 
