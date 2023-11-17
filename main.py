@@ -457,9 +457,46 @@ def shuffle_and_display():
 def save_data_to_file():
     global df
     save_data(df)
+def rename_columns():
+    global df
+
+    def update_columns(new_names):
+        global df
+        df.columns = new_names
+        display_data_and_info(df, tree, info_text_widget)
+        top.destroy()
+
+    top = Toplevel()
+    top.title("Đổi tên cột")
+    top.geometry('')
+
+    current_columns = df.columns.tolist()
+
+    label_current_columns = Label(top, text="Các cột hiện tại:")
+    label_current_columns.pack(padx=10, pady=10)
+
+    current_columns_text = scrolledtext.ScrolledText(top, width=30, height=5)
+    current_columns_text.insert(INSERT, "\n".join(current_columns))
+    current_columns_text.pack(padx=10, pady=10)
+
+    label_new_columns = Label(top, text="Nhập tên mới cho các cột (phân tách bằng dấu phẩy):")
+    label_new_columns.pack(padx=10, pady=10)
+
+    new_columns_entry = Entry(top)
+    new_columns_entry.pack(padx=10, pady=10)
+
+    def perform_rename():
+        new_names = [name.strip() for name in new_columns_entry.get().split(',')]
+        if len(new_names) != len(current_columns):
+            messagebox.showwarning("Lỗi", "Số lượng cột mới không khớp với số lượng cột hiện tại.")
+        else:
+            update_columns(new_names)
+
+    button_rename = Button(top, text='Đổi tên', command=perform_rename)
+    button_rename.pack(pady=10)
 
 root = tk.Tk()
-root.title("Quản lý dữ liệu học tập")
+root.title("Quản lý dữ liệu")
 root.wm_state('zoomed')
 
 style = Style(theme='darkly')
@@ -506,6 +543,7 @@ file_menu_2.add_command(label="Xóa trùng lặp",command=drop_duplicate_and_dis
 file_menu_2.add_command(label="Xóa các dòng có Null",command=remove_Null)
 file_menu_2.add_command(label="Tính toán",command=khung_tinh_toan)
 file_menu_2.add_command(label="Thay thế giá trị null bằng một giá trị khác",command=replace_null_option)
+file_menu_2.add_command(label="Đổi tên cột", command=rename_columns)
 
 add_edit_delete = Menu(menubar, tearoff=False)
 menubar.add_cascade(label="Thêm Sửa Xóa", menu=add_edit_delete)
@@ -524,4 +562,3 @@ menubar.add_cascade(label="Tìm kiếm dữ liệu", command=Khung_search_data)
 reset_menu = Menu(menubar, tearoff=False)
 menubar.add_cascade(label="Reset", command=reset_button)
 root.mainloop()
-
