@@ -2,34 +2,21 @@ from tkinter import *
 import pandas as pd
 import tkinter.messagebox as messagebox
 
-def edit_data(df, entry_fields, tree):
-     # Lấy giá trị từ entry_fields
-    new_data = {}
-    for column, entry in entry_fields.items():
-        new_data[column] = entry.get()
-    print(tree)
-    # Kiểm tra xem có dòng nào được chọn trong cây không
-    selected_item = tree.selection()
-    if not selected_item:
-        messagebox.showerror("Lỗi", "Vui lòng chọn một dòng để chỉnh sửa.")
-        return
+def edit_data(df,root,id_entry,entry_fields):
+    if df is None or df.empty:
+        messagebox.showwarning("Không có dữ liệu", "Vui lòng tải dữ liệu trước khi chỉnh sửa!")
+        root.destroy() 
+        return None
 
-    selected_item = selected_item[0]
-    selected_data = tree.item(selected_item)['values']
-
-    # Lấy chỉ mục của dòng được chọn trong DataFrame
-    try:
-       selected_index = df[df.apply(lambda row: row.equals(pd.Series(selected_data)), axis=1)].index.tolist()
-
-    except IndexError:
-        messagebox.showerror("Lỗi", "Không tìm thấy chỉ mục cho dòng được chọn.")
-        return
-
-    # Cập nhật dữ liệu trong DataFrame
-    for column, value in new_data.items():
-        df.at[selected_index.index, column] = value
-
-    # Cập nhật dữ liệu trong cây
-    tree.item(selected_item, values=list(new_data.values()))
-
-    messagebox.showinfo("Thông báo", "Dữ liệu đã được chỉnh sửa thành công.")
+# Chỉnh sửa dữ liệu trong DataFrame dựa trên ID
+    id = id_entry.get()  # Lấy ID từ ô nhập liệu
+    data = {}  # Tạo một dictionary để lưu dữ liệu
+    for column in df.columns:
+        data[column] = entry_fields[column].get()  # Lấy dữ liệu từ các ô nhập liệu
+    if any(df.iloc[:,0] == id):  # Kiểm tra xem có hàng nào có 'Student ID' bằng `id`
+        df.loc[df.iloc[:,0] == id] = list(data.values())  # Cập nhật dữ liệu trong DataFrame
+        messagebox.showinfo("Thông báo", "Chỉnh sửa dữ liệu thành công!")  # Hiển thị thông báo thành công
+    else:
+        messagebox.showinfo("Thông báo", "Không tìm thấy ID!")  # Hiển thị thông báo không tìm thấy ID
+    root.destroy()  # Đóng cửa sổ GUI
+    return df

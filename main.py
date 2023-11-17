@@ -369,7 +369,7 @@ def Khung_edit_data():
         entry_fields[column] = Entry(root)
         entry_fields[column].grid(row=i + 1, column=1)
 
-    Button(root, text='Sửa', command=lambda: edit_data(df, entry_fields, tree)).grid(row=len(df.columns)+1, column=0)
+    Button(root, text='Sửa', command=lambda: edit_data(df,root,entry_fields[df.columns[0]], entry_fields)).grid(row=len(df.columns)+1, column=0)
 
     root.mainloop()
 
