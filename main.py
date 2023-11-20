@@ -328,7 +328,7 @@ def Khung_delete_data():
         Label(root, text=column).grid(row=i + 1)
         entry_field[column] = Entry(root)
         entry_field[column].grid(row=i + 1, column=1)
-    Button(root, text='Xóa', command=lambda: delete_data(df,root,entry_field[df.columns[0]].get())).grid(row=len(df.columns)+1, column=0)
+    Button(root, text='Xóa', command=lambda: delete_data(df,root,entry_field[columns[0]])).grid(row=len(df.columns)+1, column=0)
     root.mainloop()
 
 def Khung_edit_data():

@@ -9,7 +9,9 @@ def edit_data(df,root,id_entry,entry_fields):
         return None
 
 # Chỉnh sửa dữ liệu trong DataFrame dựa trên ID
-    id = id_entry.get()  # Lấy ID từ ô nhập liệu
+    id = id_entry.get() 
+    if id.isdigit():
+        id=int(id) # Lấy ID từ ô nhập liệu
     data = {}  # Tạo một dictionary để lưu dữ liệu
     for column in df.columns:
         data[column] = entry_fields[column].get()  # Lấy dữ liệu từ các ô nhập liệu
