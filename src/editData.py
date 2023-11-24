@@ -9,7 +9,7 @@ def edit_data(df,root,id_entry,entry_fields):
         return None
 
 # Chỉnh sửa dữ liệu trong DataFrame dựa trên ID
-    id = id_entry.get() 
+    id = id_entry
     if id.isdigit():
         id=int(id) # Lấy ID từ ô nhập liệu
     elif id.replace('.', '', 1).isdigit():
@@ -17,7 +17,8 @@ def edit_data(df,root,id_entry,entry_fields):
     data = {}  # Tạo một dictionary để lưu dữ liệu
     for column in df.columns:
         data[column] = entry_fields[column].get()  # Lấy dữ liệu từ các ô nhập liệu
-    if any(df.iloc[:,0] == id):  # Kiểm tra xem có hàng nào có 'Student ID' bằng `id`
+
+    if any(df.iloc[:,0] == id):  
         df.loc[df.iloc[:,0] == id] = list(data.values())  # Cập nhật dữ liệu trong DataFrame
         messagebox.showinfo("Thông báo", "Chỉnh sửa dữ liệu thành công!")  # Hiển thị thông báo thành công
     else:

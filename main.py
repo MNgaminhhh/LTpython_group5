@@ -328,7 +328,7 @@ def Khung_delete_data():
         Label(root, text=column).grid(row=i + 1)
         entry_field[column] = Entry(root)
         entry_field[column].grid(row=i + 1, column=1)
-    Button(root, text='Xóa', command=lambda: delete_data(df,root,entry_field[columns[0]])).grid(row=len(df.columns)+1, column=0)
+    Button(root, text='Xóa', command=lambda: delete_data(df,root,entry_field[df.columns[0]].get())).grid(row=len(df.columns)+1, column=0)
     root.mainloop()
 
 def Khung_edit_data():
@@ -369,9 +369,7 @@ def Khung_edit_data():
     scrollbar_x = Scrollbar(frame, orient="horizontal", command=tree.xview)
     scrollbar_x.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
     tree.configure(xscrollcommand=scrollbar_x.set)
-    
     Button(frame, text='Tìm kiếm', command=lambda: search_and_display(df, selected_column.get(), search_entry.get(), tree) ).grid(row=4, column=0, pady=10, sticky="ew", columnspan=2)
-    
     def on_tree_select(event):
         selected_item = tree.selection()[0]
         selected_data = tuple(tree.item(selected_item)['values'])
@@ -389,7 +387,7 @@ def Khung_edit_data():
         entry_fields[column] = Entry(root)
         entry_fields[column].grid(row=i + 1, column=1)
 
-    Button(root, text='Sửa', command=lambda: edit_data(df,root,entry_fields[df.columns[0]], entry_fields)).grid(row=len(df.columns)+1, column=0)
+    Button(root, text='Sửa', command=lambda: edit_data(df,root,entry_fields[df.columns[0]].get(), entry_fields)).grid(row=len(df.columns)+1, column=0)
 
     root.mainloop()
 

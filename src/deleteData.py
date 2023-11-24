@@ -7,7 +7,7 @@ def delete_data(df,root,entry_field):
         messagebox.showwarning("Không có dữ liệu", "Vui lòng tải dữ liệu trước khi xóa!")
         root.destroy() 
         return None
-    id =entry_field.get()
+    id =entry_field
     if id.isdigit():
         id=int(id)
     elif id.replace('.', '', 1).isdigit():
