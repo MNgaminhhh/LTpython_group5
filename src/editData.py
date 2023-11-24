@@ -12,6 +12,8 @@ def edit_data(df,root,id_entry,entry_fields):
     id = id_entry.get() 
     if id.isdigit():
         id=int(id) # Lấy ID từ ô nhập liệu
+    elif id.replace('.', '', 1).isdigit():
+        id=float(id)
     data = {}  # Tạo một dictionary để lưu dữ liệu
     for column in df.columns:
         data[column] = entry_fields[column].get()  # Lấy dữ liệu từ các ô nhập liệu
